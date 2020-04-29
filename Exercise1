@@ -1,0 +1,46 @@
+CREATE TABLE patient (
+_id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
+pn VARCHAR(11) DEFAULT NULL,
+first VARCHAR(15) DEFAULT NULL,
+last VARCHAR(25) DEFAULT NULL,
+dob DATE DEFAULT NULL
+);
+---------------------------------
+CREATE TABLE insurance (
+_id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
+patient_id INT(10) UNSIGNED NOT NULL,
+iname VARCHAR(40) DEFAULT NULL,
+from_date DATE DEFAULT NULL,
+to_date DATE DEFAULT NULL,
+FOREIGN KEY (patient_id) REFERENCES patient(_id)
+);
+---------------------
+INSERT INTO patient (_id,pn,first,last,dob) 
+values (1,"101","Sue","Lee",STR_TO_DATE("2017-03-17 09:22","%Y-%m-%d %H:%i"));
+
+INSERT INTO patient (pn,first,last,dob) 
+values ("102","Ang","Lee",STR_TO_DATE("2017-03-17 09:22","%Y-%m-%d %H:%i"));
+
+INSERT INTO patient (pn,first,last,dob) 
+values ("103","Hang","Lee",STR_TO_DATE("2017-03-17 09:22","%Y-%m-%d %H:%i"));
+
+INSERT INTO patient (pn,first,last,dob) 
+values ("104","Juan","Lee",STR_TO_DATE("2017-03-17 09:22","%Y-%m-%d %H:%i"));
+
+INSERT INTO patient (pn,first,last,dob) 
+values ("105","Sang","Lee",STR_TO_DATE("2017-03-17 09:22","%Y-%m-%d %H:%i"));
+
+INSERT INTO patient (pn,first,dob) 
+values ("106","Sang1",STR_TO_DATE("2017-03-17 09:22","%Y-%m-%d %H:%i"));
+
+--------------------------------------------------------------
+ INSERT INTO insurance (_id, patient_id,iname,from_date,to_date)
+    VALUES (1,(SELECT _id FROM patient WHERE pn = "101"), "Medicare",
+    	STR_TO_DATE("2017-03-17 09:22","%Y-%m-%d %H:%i"),
+    	STR_TO_DATE("2017-04-18 10:22","%Y-%m-%d %H:%i"));
+
+ INSERT INTO insurance (_id, patient_id,iname,from_date,to_date)
+    VALUES (2,(SELECT _id FROM patient WHERE pn = "102"), "Blue Care",
+    	STR_TO_DATE("2017-05-26 09:00","%Y-%m-%d %H:%i"),
+    	STR_TO_DATE("2017-07-19 10:00","%Y-%m-%d %H:%i"));
+--------------------------------------------------------------
